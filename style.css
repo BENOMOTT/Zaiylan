@@ -58,30 +58,34 @@ p{
 /***** CORAZON *****/
 .corazones-container {
     display: flex;
-    justify-content: space-around; /* Esto distribuirá los corazones horizontalmente */
+    flex-direction: row; /* Siempre en fila */
+    justify-content: space-evenly; /* Espaciado uniforme en escritorio */
     align-items: center;
-    margin: 50px 50px;
+    gap: 20px;
+    margin: 30px auto;
+    width: 100%;
+    padding: 0 10px; /* Espacio en los laterales */
 }
 
 .corazon {
-    position: relative;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: #ff4757;
     transform: rotate(-45deg);
     box-shadow: -10px 10px 90px #ff4757;
-    animation: animate .6s linear infinite;
+    animation: animate 0.6s linear infinite;
+    position: relative; /* Necesario para los pseudoelementos */
 }
 
 @keyframes animate {
-    0%{
+    0% {
         transform: rotate(-45deg) scale(1.07);
     }
-    80%{
+    80% {
         transform: rotate(-45deg) scale(1.0);
     }
-    100%{
-        transform: rotate(-45deg) scale(0.8); 
+    100% {
+        transform: rotate(-45deg) scale(0.8);
     }
 }
 
@@ -89,11 +93,10 @@ p{
 .corazon::after {
     content: '';
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: #ff4757;
     border-radius: 50%;
-    box-shadow: -10px -10px 90px #ff4757;
 }
 
 .corazon::before {
@@ -103,6 +106,27 @@ p{
 .corazon::after {
     right: -50%;
 }
+
+/* Para dispositivos móviles: mantener la fila pero centrada y con mayor separación */
+@media (max-width: 768px) {
+    .corazones-container {
+        justify-content: center; /* Centrado en móviles */
+        gap: 40px; /* Mayor separación entre corazones */
+    }
+
+    .corazon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .corazon::before,
+    .corazon::after {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+
 /***** End CORAZON *****/
 
 
@@ -173,3 +197,21 @@ p{
     transform: scale(1.05);
     box-shadow: 0 15px 60px rgba(0, 0, 0, 0.2);
 }
+
+@media (max-width: 768px) {
+    .col-md-4 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #content {
+      width: 80%;
+      max-width: none; /* Evita que el max-width original lo limite */
+      margin: 20px auto; /* Se centra automáticamente */
+      padding: 15px; /* Opcional: reduce el padding para móviles */
+    }
+  }
+  
